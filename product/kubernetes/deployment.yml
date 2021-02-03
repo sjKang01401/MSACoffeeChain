@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: product
-  namespace: coffee
   labels:
     app: product
 spec:
@@ -17,15 +16,15 @@ spec:
     spec:
       containers:
         - name: product
-          image: sjkang.azurecr.io/product:latest
+          image: coffeeReserve.azurecr.io/product:latest
           ports:
             - containerPort: 8080
           env:
-            - name: configurl
+            - name: stockapiurl
               valueFrom:
                 configMapKeyRef:
-                  name: apiproducturl
-                  key: url
+                  name: apiurl
+                  key: stockapiurl
           readinessProbe:
             httpGet:
               path: '/actuator/health'

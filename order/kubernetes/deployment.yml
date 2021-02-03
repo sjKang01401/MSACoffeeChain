@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: order
-  namespace: coffee
   labels:
     app: order
 spec:
@@ -17,15 +16,20 @@ spec:
     spec:
       containers:
         - name: order
-          image: sjkang.azurecr.io/order:latest
+          image: coffeeReserve.azurecr.io/order:latest
           ports:
             - containerPort: 8080
           env:
-            - name: configurl
+            - name: productapiurl
               valueFrom:
                 configMapKeyRef:
-                  name: apiorderurl
-                  key: url
+                  name: apiurl
+                  key: productapiurl
+            - name: customerapiurl
+                valueFrom:
+                  configMapKeyRef:
+                    name: apiurl
+                    key: customerapiurl
           readinessProbe:
             httpGet:
               path: '/actuator/health'

@@ -69,4 +69,6 @@ spring:
           contentType: application/json
 api:
   product:
-    url: ${configurl}
+    url: ${productapiurl}
+  customer:
+    url: ${customerapiurl}

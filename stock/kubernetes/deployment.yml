@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stock
-  namespace: coffee
   labels:
     app: stock
 spec:
@@ -17,7 +16,7 @@ spec:
     spec:
       containers:
         - name: stock
-          image: sjkang.azurecr.io/stock:latest
+          image: coffeeReserve.azurecr.io/stock:latest
           ports:
             - containerPort: 8080
           readinessProbe:
