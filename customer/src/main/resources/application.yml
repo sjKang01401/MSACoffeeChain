@@ -24,7 +24,7 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: order
+          group: customer
           destination: msacoffeechainsample
           contentType: application/json
         event-out:
@@ -36,12 +36,7 @@ logging:
     org.hibernate.type: trace
     org.springframework.cloud: debug
 server:
-  port: 8081
-api:
-  product:
-    url: http://localhost:8082
-  customer:
-    url: http://localhost:8085
+  port: 8085
 ---
 
 spring:
@@ -61,12 +56,9 @@ spring:
                   serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       bindings:
         event-in:
-          group: order
+          group: customer
           destination: msacoffeechainsample
           contentType: application/json
         event-out:
           destination: msacoffeechainsample
           contentType: application/json
-api:
-  product:
-    url: ${configurl}

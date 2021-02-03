@@ -17,11 +17,23 @@ public class Order {
     private String productName;
     private Integer qty;
     private String status;
+    private Long customerId;
+    private String customerLevel;
 
     @PrePersist
     public void onPrePersist() {
 
-        // Status 변화 후 Order insert
+        msacoffeechainsample.external.CustomerInfo customerInfo = new msacoffeechainsample.external.CustomerInfo();
+        customerInfo.setId(this.getCustomerId());
+
+        // req/res
+        String customerLevel = OrderApplication.applicationContext.getBean(msacoffeechainsample.external.CustomerInfoService.class)
+                                .checkLevel(customerInfo.getId());
+
+        // update customer level
+        this.setCustomerLevel(customerLevel);
+
+        // Status 변화
         this.setStatus("Requested");
     }
 
@@ -61,6 +73,20 @@ public class Order {
             OrderApplication.applicationContext.getBean(msacoffeechainsample.external.ProductService.class)
                     .cancel(product.getId(), product);
         }
+
+        // Event 객체 생성
+        StatusUpdated statusUpdated = new StatusUpdated();
+
+        // Aggregate 값을 Event 객체로 복사
+        BeanUtils.copyProperties(this, statusUpdated);
+
+        // 주문 취소 시 qty 마이너스
+        if (this.getStatus().equals("Canceled")) { statusUpdated.setQty(statusUpdated.getQty() * -1 ); }
+
+        System.out.println("StatusUpdate >> " + statusUpdated.toJson());
+
+        // pub/sub
+        statusUpdated.publishAfterCommit();
     }
 
 
@@ -95,4 +121,9 @@ public class Order {
         this.status = status;
     }
 
+    public Long getCustomerId() { return customerId; }
+    public void setCustomerId(Long customerId) { this.customerId = customerId; }
+
+    public String getCustomerLevel() { return customerLevel; }
+    public void setCustomerLevel(String customerLevel) { this.customerLevel = customerLevel; }
 }

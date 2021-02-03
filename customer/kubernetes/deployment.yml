@@ -1,33 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customercenter
-  namespace: coffee
+  name: customer
   labels:
-    app: customercenter
+    app: customer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: customercenter
+      app: customer
   template:
     metadata:
       labels:
-        app: customercenter
+        app: customer
     spec:
       containers:
-        - name: customercenter
-          image: sjkang.azurecr.io/customercenter:latest
+        - name: customer
+          image: username/customer:latest
           ports:
             - containerPort: 8080
-#          readinessProbe:
-#            httpGet:
-#              path: '/actuator/health'
-#              port: 8080
-#            initialDelaySeconds: 10
-#            timeoutSeconds: 2
-#            periodSeconds: 5
-#            failureThreshold: 10
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
           livenessProbe:
             httpGet:
               path: '/actuator/health'

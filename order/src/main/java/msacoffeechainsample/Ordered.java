@@ -7,6 +7,8 @@ public class Ordered extends AbstractEvent {
     private Integer qty;
     private String status;
     private String productName;
+    private Long customerId;
+    private String customerLevel;
 
     public Long getId() {
         return id;
@@ -38,4 +40,10 @@ public class Ordered extends AbstractEvent {
     public void setProductName(String productName) {
         this.productName = productName;
     }
+
+    public Long getCustomerId() { return customerId; }
+    public void setCustomerId(Long customerId) { this.customerId = customerId; }
+
+    public String getCustomerLevel() { return customerLevel; }
+    public void setCustomerLevel(String customerLevel) { this.customerLevel = customerLevel; }
 }

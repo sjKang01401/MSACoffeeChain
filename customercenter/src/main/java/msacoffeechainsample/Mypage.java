@@ -16,6 +16,8 @@ public class Mypage {
         private String productStatus;
         private String productName;
         private Integer qty;
+        private Long customerId;
+        private String customerLevel;
 
         public Long getId() {
             return id;
@@ -65,4 +67,10 @@ public class Mypage {
         public void setQty(Integer qty) {
             this.qty = qty;
         }
+
+        public Long getCustomerId() { return customerId; }
+        public void setCustomerId(Long customerId) { this.customerId = customerId; }
+
+        public String getCustomerLevel() { return customerLevel; }
+        public void setCustomerLevel(String customerLevel) { this.customerLevel = customerLevel; }
 }

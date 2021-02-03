@@ -31,6 +31,8 @@ public class MypageViewHandler {
                 mypage.setOrderStatus(ordered.getStatus());
                 mypage.setQty(ordered.getQty());
                 mypage.setProductName(ordered.getProductName());
+                mypage.setCustomerId(ordered.getCustomerId());
+                mypage.setCustomerLevel(ordered.getCustomerLevel());
 
                 // view 레파지 토리에 save
                 mypageRepository.save(mypage);
@@ -82,9 +84,7 @@ public class MypageViewHandler {
     @StreamListener(KafkaProcessor.INPUT)
     public void whenProductCanceled_then_DELETE_1(@Payload ProductCanceled productCanceled) {
 
-        System.out.println("canceled >> " + productCanceled.getOrderId());
-
-        try {
+       try {
             if (productCanceled.isMe()) {
                 // view 레파지 토리에 삭제 쿼리
                 mypageRepository.deleteByOrderId(productCanceled.getOrderId());
