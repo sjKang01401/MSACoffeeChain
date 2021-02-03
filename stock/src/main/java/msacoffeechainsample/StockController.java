@@ -18,7 +18,7 @@ public class StockController {
     public boolean stockReduced(@RequestBody Stock inputStock) {
 
         try {
-            Thread.sleep((long) (1000 * 6));
+            Thread.currentThread().sleep((long) (400 + Math.random() * 220));
 	} catch (InterruptedException e) {
             e.printStackTrace();
 	}
