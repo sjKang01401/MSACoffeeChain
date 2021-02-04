@@ -213,7 +213,7 @@ public class CustomerInfoController {
 ![2_mypage](https://user-images.githubusercontent.com/26760226/106837081-afe8b080-66dd-11eb-9827-e1ca1708d790.png)
 
 ### 4. Gateway 적용
-- application.xml <br>
+- application.yaml <br>
 ![gateway](https://user-images.githubusercontent.com/26760226/106840485-9d717580-66e3-11eb-8f21-5a155b4b0e47.png)
 - gateway 주소로 고객 정보를 조회하면 동일한 결과 <br>
 ![gateway_test](https://user-images.githubusercontent.com/26760226/106840712-08bb4780-66e4-11eb-8c13-dcdc098cb910.png)
@@ -233,7 +233,7 @@ public class CustomerInfoController {
 ![deploy_5](https://user-images.githubusercontent.com/26760226/106842176-da8b3700-66e6-11eb-88a3-51f9948b565d.png)
 
 ### 2. Circuit Breaker
-- order의 application.xml <br>
+- order의 application.yaml <br>
 ![circuit_1](https://user-images.githubusercontent.com/26760226/106845626-ad428700-66ee-11eb-8ddf-8bb3f2a2f593.png)
 - siege command
 ``` bash
@@ -244,7 +244,7 @@ siege -c10 -t60S -r10 -v --content-type "application/json" 'http://order:8080/or
 ![siege_result_2](https://user-images.githubusercontent.com/26760226/106845681-ca775580-66ee-11eb-8a6d-40a92f34ba4d.png)
 
 ### 3. Autoscale
-- order의 deployment.xml <br>
+- order의 deployment.yaml <br>
 ![autoscale_1](https://user-images.githubusercontent.com/26760226/106846489-4aea8600-66f0-11eb-90ce-ae30a30da9c7.png)
 ``` bash
 kubectl autoscale deploy order --min=1 --max=10 --cpu-percent=15
@@ -264,7 +264,7 @@ kubectl get deploy order -w
 ![readiness_1](https://user-images.githubusercontent.com/26760226/106847381-2099c800-66f2-11eb-8753-35880af66203.png)
 - customer의 deployment.yml 에 readiness 옵션 추가 <br>
 ![readiness_4](https://user-images.githubusercontent.com/26760226/106847498-5d65bf00-66f2-11eb-8480-99a636960c91.png)
-- 기존 버전과 새 버전의 pod 공존 중
+- 기존 버전과 새 버전의 pod 공존 중 <br?
 ![readiness_2](https://user-images.githubusercontent.com/26760226/106847383-21325e80-66f2-11eb-9bc9-9d90d398f4b0.png)
 - Availability 100% 확인 <br>
 ![readiness_3](https://user-images.githubusercontent.com/26760226/106847385-21caf500-66f2-11eb-8459-cbbe29b3a63f.png)
