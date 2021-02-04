@@ -223,28 +223,28 @@ public class CustomerInfoController {
 ![polyglot](https://user-images.githubusercontent.com/26760226/106841139-e118af00-66e4-11eb-86f7-874cfba18b48.png)
 
 <br>
+
 # 운영
 
 ### 1. Deploy/ Pipeline
 ![deploy_1](https://user-images.githubusercontent.com/26760226/106842169-d8c17380-66e6-11eb-9f36-9b439736a15b.png)
 ![deploy_2](https://user-images.githubusercontent.com/26760226/106842173-d95a0a00-66e6-11eb-9cb5-333cede5e24d.png)
-![deploy_3](https://user-images.githubusercontent.com/26760226/106842174-d95a0a00-66e6-11eb-9b27-444dc1d36868.png)
 ![deploy_4](https://user-images.githubusercontent.com/26760226/106842347-3655c000-66e7-11eb-8633-7f8f2676b190.png)
 ![deploy_5](https://user-images.githubusercontent.com/26760226/106842176-da8b3700-66e6-11eb-88a3-51f9948b565d.png)
 
 ### 2. Circuit Breaker
-- order의 application.xml
+- order의 application.xml <br>
 ![circuit_1](https://user-images.githubusercontent.com/26760226/106845626-ad428700-66ee-11eb-8ddf-8bb3f2a2f593.png)
 - siege command
 ``` bash
 siege -c10 -t60S -r10 -v --content-type "application/json" 'http://order:8080/orders POST {"customerId":1, "productName":"Americano", "qty":1}'
 ```
-- siege 결과
+- siege 결과 <br>
 ![siege_result](https://user-images.githubusercontent.com/26760226/106845678-c9debf00-66ee-11eb-9b65-536446f3395a.png)
 ![siege_result_2](https://user-images.githubusercontent.com/26760226/106845681-ca775580-66ee-11eb-8a6d-40a92f34ba4d.png)
 
 ### 3. Autoscale
-- order의 deployment.xml
+- order의 deployment.xml <br>
 ![autoscale_1](https://user-images.githubusercontent.com/26760226/106846489-4aea8600-66f0-11eb-90ce-ae30a30da9c7.png)
 ``` bash
 kubectl autoscale deploy order --min=1 --max=10 --cpu-percent=15
@@ -262,22 +262,23 @@ kubectl get deploy order -w
 ### 4. Zero-downtime deploy
 - readiness 옵션이 없는 경우 배포 중 서비스 요청처리 실패함
 ![readiness_1](https://user-images.githubusercontent.com/26760226/106847381-2099c800-66f2-11eb-8753-35880af66203.png)
-- customer의 deployment.yml 에 readiness 옵션 추가
+- customer의 deployment.yml 에 readiness 옵션 추가 <br>
 ![readiness_4](https://user-images.githubusercontent.com/26760226/106847498-5d65bf00-66f2-11eb-8480-99a636960c91.png)
 - 기존 버전과 새 버전의 pod 공존 중
 ![readiness_2](https://user-images.githubusercontent.com/26760226/106847383-21325e80-66f2-11eb-9bc9-9d90d398f4b0.png)
-- Availability 100% 확인
+- Availability 100% 확인 <br>
 ![readiness_3](https://user-images.githubusercontent.com/26760226/106847385-21caf500-66f2-11eb-8459-cbbe29b3a63f.png)
 
 ### 5. Config map
-- order의 application.yaml
+- order의 application.yaml <br>
 ![configmap_1](https://user-images.githubusercontent.com/26760226/106847760-e8df5000-66f2-11eb-8a05-30faf30a8e22.png)
-- order의 deployment.yaml
+- order의 deployment.yaml <br>
 ![configmap_2](https://user-images.githubusercontent.com/26760226/106847764-e977e680-66f2-11eb-998a-20911a5640c7.png)
 - Config map 생성
 ``` bash
 kubectl create configmap apiurl --from-literal=productapiurl=http://product:8080 --from-literal=stockapiurl=http://stock:8080 --from-literal=customerapiurl=http://customer:8080
 ```
+![deploy_3](https://user-images.githubusercontent.com/26760226/106842174-d95a0a00-66e6-11eb-9b27-444dc1d36868.png)
 ![configmap_3](https://user-images.githubusercontent.com/26760226/106847766-ea107d00-66f2-11eb-8014-eb6ecee5dc83.png)
 
 ### 6. Self-healing (Liveness Probe)
